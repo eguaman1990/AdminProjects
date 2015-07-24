@@ -15,6 +15,9 @@ and open the template in the editor.
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <?php require_once 'navbar.php';?>
+    <?php require_once 'navbar.php'; ?>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </body>
 </html>
