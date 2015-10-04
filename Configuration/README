@@ -1,0 +1,9 @@
+CHANGELOG
+
+La Idea de la Carpeta Configuracion seria la de parametrizar todos los datos básicos
+para el inicio de un proyecto como por ejemplo
+
+String Conexion BD 
+String Correo 
+String LINKS
+Carpetas Base (ya sea para imagenes, documentos, etc)

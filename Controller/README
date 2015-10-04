@@ -1,0 +1,3 @@
+La idea de este directorio controller seria la de tener todos los controladores 
+en este directorio permitiendo solo a estos el acceso desde aqui a nuestra 
+lógica de negocio.
