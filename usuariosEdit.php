@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+if (isset($_REQUEST["id_persona"])) {
+    $id_persona = $_REQUEST["id_persona"];
+} else {
+    $id_persona = 0;
+}
+?>
 
 <html>
     <head>
@@ -15,8 +22,8 @@
         <div class="container">
             <div class="well bs-component">
                 <form class="form-horizontal" id="frmAdd">
-
-                    <h1 class="page-header">Agregar Usuario</h1>
+                    <input type="hidden" id="txtIdPersona" value="<?= $id_persona; ?>"  />
+                           <h1 class="page-header"><?= $id_persona == 0 ? "Agregar Usuario" : "Editar Usuario"; ?></h1>
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Datos Persona</legend>
@@ -70,24 +77,6 @@
                             </div>
                         </div>
 
-                        <!-- Password input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtClave">Clave</label>
-                            <div class="col-md-4">
-                                <input id="txtClave" name="txtClave" type="password" placeholder="Ingrese su Clave" class="form-control input-md" required="" minlength="8" maxlength="16">
-                                <span class="help-block">Minimo 8 dígitos</span>
-                            </div>
-                        </div>
-
-                        <!-- Password input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtClaveRep">Repita Clave</label>
-                            <div class="col-md-4">
-                                <input id="txtClaveRep" name="txtClaveRep" type="password" placeholder="Repita su Clave" class="form-control input-md" required="">
-
-                            </div>
-                        </div>
-
                         <!-- Button (Double) -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="btnGuardar"></label>
@@ -112,6 +101,30 @@
             $(document).on("ready", function () {
                 function error(e) {
                     alert("se prudujo un error");
+                }
+
+                if ($('#txtIdPersona').val() != 0) {
+                    Cargar();
+                }
+
+                function Cargar() {
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            accion: 'cargar',
+                            id_persona: $("#txtIdPersona").val()
+                        },
+                        url: "controller/usuarioController.php",
+                        success: function (data) {
+                            $("#txtNombre").val(data.nombre);
+                            $("#txtApPaterno").val(data.paterno);
+                            $("#txtApellidoMaterno").val(data.materno);
+                            $("#txtEmail").val(data.email);
+                        },
+                        error: function (e) {
+                            error(e);
+                        }
+                    });
                 }
 
                 function agregar() {

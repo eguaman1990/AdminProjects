@@ -85,7 +85,7 @@ and open the template in the editor.
                                                 field: 'email',
                                                 title: 'Email',
                                                 align: 'left',
-                                                valign: 'top',
+                                                valign: 'middle',
                                                 sortable: true
                                             }, {
                                                 field: 'celular',
@@ -113,7 +113,7 @@ and open the template in the editor.
                                                 sortable: true
                                             }, {
                                                 field: 'operate',
-                                                title: 'Item Operate',
+                                                title: 'Opciones',
                                                 align: 'center',
                                                 valign: 'middle',
                                                 clickToSelect: false,
@@ -125,8 +125,9 @@ and open the template in the editor.
 
                                 window.operateEvents = {
                                     'click .edit': function (e, value, row, index) {
-                                        alert('You click edit icon, row: ' + JSON.stringify(row));
-                                        console.log(value, row, index);
+                                        //alert('You click edit icon, row: ' + JSON.stringify(row));
+                                        //console.log(value, row, index);
+                                        window.location.href="usuariosEdit.php?id_persona="+row.id_persona;
                                     },
                                     'click .remove': function (e, value, row, index) {
                                         modal("Eliminar", "¿Desea Eliminar el registro seleccionado?", "Eliminar");
@@ -158,10 +159,10 @@ and open the template in the editor.
 
                                 function operateFormatter(value, row, index) {
                                     return [
-                                        '<a class="edit btn btn-warning btn-fab btn-raised" href="javascript:void(0)" title="Editar">',
+                                        '<a class="edit btn btn-warning btn-raised btn-xs " href="javascript:void(0)" title="Editar">',
                                         '<i class="mdi-content-create"></i>',
                                         '</a>',
-                                        '<a class="remove btn btn-danger btn-fab btn-raised" href="javascript:void(0)" title="Eliminar">',
+                                        '<a class="remove btn btn-danger btn-raised btn-xs" href="javascript:void(0)" title="Eliminar">',
                                         '<i class="mdi-action-delete"></i>',
                                         '</a>'
                                     ].join('');
