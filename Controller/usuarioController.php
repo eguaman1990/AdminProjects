@@ -2,6 +2,8 @@
 
 require_once "../class/BD.class.php";
 require_once "../class/Tablas.class.php";
+require_once "../class/Consultas.php";
+require_once "../class/MyException.class.php";
 
 $respuesta = "";
 $estado = "";
@@ -97,27 +99,27 @@ if ($accion == "add") {
 if ($accion == "cargar") {
     $bd = new BD();
     try {
-        $bd = new BD();
-        $res = $bd->select(Consultas::LIST_USUARIOS, $parametros);
+        $parametros = array($id_persona);
+        $res = $bd->select(Consultas::CARGAR_USUARIOS, $parametros);
         if ($bd->myException->getEstado() == 0) {
             while ($rs = $res->fetch()) {
+                //print_r($rs);
                 $estado = "ok";
-                $campos[] = array(
+                $campos = array(
                     "id_persona" => $rs["id_persona"],
-                    "nombre" => $rs["pers_nombrecompleto"],
+                    "nombre" => $rs["pers_nombres"],
                     "email" => $rs["pers_email"],
-                    "telefono" => $rs["pers_telefono"],
-                    "celular" => $rs["pers_celular"],
-                    "rut" => $rs["pers_rut"],
+                    "paterno"=>$rs["pers_paterno"],
+                    "materno"=>$rs["pers_materno"],
                     "usuario" => $rs["usua_nombre_usuario"]);
             }
         }
-    } catch (Exception $e) {
+    } catch (MyException $e) {
         $estado = "error";
         $mensaje = $e->getMessage();
     }
     $bd = NULL;
-    $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje);
+    $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje,"campos"=>$campos);
 }
 
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1

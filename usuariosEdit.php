@@ -5,6 +5,7 @@ if (isset($_REQUEST["id_persona"])) {
 } else {
     $id_persona = 0;
 }
+echo $id_persona;
 ?>
 
 <html>
@@ -23,7 +24,7 @@ if (isset($_REQUEST["id_persona"])) {
             <div class="well bs-component">
                 <form class="form-horizontal" id="frmAdd">
                     <input type="hidden" id="txtIdPersona" value="<?= $id_persona; ?>"  />
-                           <h1 class="page-header"><?= $id_persona == 0 ? "Agregar Usuario" : "Editar Usuario"; ?></h1>
+                    <h1 class="page-header"><?= $id_persona == 0 ? "Agregar Usuario" : "Editar Usuario"; ?></h1>
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Datos Persona</legend>
@@ -116,10 +117,19 @@ if (isset($_REQUEST["id_persona"])) {
                         },
                         url: "controller/usuarioController.php",
                         success: function (data) {
-                            $("#txtNombre").val(data.nombre);
-                            $("#txtApPaterno").val(data.paterno);
-                            $("#txtApellidoMaterno").val(data.materno);
-                            $("#txtEmail").val(data.email);
+                            if (data[0].estado === "ok") {
+                                $("#txtNombre").val(data[0].campos.nombre);
+                                $("#txtApPaterno").val(data[0].campos.paterno);
+                                $("#txtApellidoMaterno").val(data[0].campos.materno);
+                                $("#txtEmail").val(data[0].campos.email);
+                                $("#txtUser").val(data[0].campos.usuario);
+                                $("#txtUser").addClass(".readonly .disabled");
+                                $("#txtUser").attr("readonly","readonly");
+                                $("#txtUser").attr("disabled","disabled");
+                            } else {
+
+                            }
+                            console.log(data[0].estado);
                         },
                         error: function (e) {
                             error(e);
@@ -132,13 +142,14 @@ if (isset($_REQUEST["id_persona"])) {
                     $.ajax({
                         type: 'POST',
                         data: {
-                            accion: 'add',
+                            accion: 'update',
                             nombre: $("#txtNombre").val(),
                             ap_paterno: $("#txtApPaterno").val(),
                             ap_materno: $("#txtApellidoMaterno").val(),
                             user: $("#txtUser").val(),
                             pass: $("#txtClave").val(),
-                            email: $("#txtEmail").val()
+                            email: $("#txtEmail").val(),
+                            id_persona:$("txtIdPersona").val()
                         },
                         url: "controller/usuarioController.php",
                         success: function (e) {
@@ -162,30 +173,6 @@ if (isset($_REQUEST["id_persona"])) {
                     unhighlight: function (element, errorClass, validClass) {
                         $(element).parents(".error").removeClass(errorClass).addClass(validClass);
                         $(element).closest('.form-group').removeClass('has-error').addClass('has-success"');
-                    },
-                    rules: {
-                        txtClave: "required",
-                        txtClaveRep: {
-                            equalTo: "#txtClave"
-                        },
-                        txtUser: {
-                            remote: {
-                                url: "controller/validaciones.php",
-                                type: "post",
-                                data: {
-                                    accion: "validaUsuario"
-                                }
-                            }
-                        },
-                        txtEmail: {
-                            required: true,
-                            email: true
-                        }
-                    },
-                    messages: {
-                        txtUser: {
-                            remote: "Nombre de Usuario ya Existe"
-                        }
                     },
                     submitHandler: function (form) {
                         console.info("ingreso");
