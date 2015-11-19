@@ -49,9 +49,9 @@ echo $id_persona;
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtApellidoMaterno">Apellido Materno:</label>  
+                            <label class="col-md-4 control-label" for="txtApMaterno">Apellido Materno:</label>  
                             <div class="col-md-4">
-                                <input id="txtApellidoMaterno" name="txtApellidoMaterno" type="text" placeholder="Ingrese su Apellido Materno" class="form-control input-md" required="">
+                                <input id="txtApMaterno" name="txtApeMaterno" type="text" placeholder="Ingrese su Apellido Materno" class="form-control input-md" required="">
 
                             </div>
                         </div>
@@ -73,7 +73,7 @@ echo $id_persona;
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtUser">Nombre Usuario:</label>  
                             <div class="col-md-4">
-                                <input id="txtUser" name="txtUser" type="text" placeholder="Ingrese su Nombre de Usuario" class="form-control input-md" required="">
+                                <input id="txtUser" name="txtUser" type="text" placeholder="Ingrese su Nombre de Usuario" class="form-control input-md" required="" readonly="true">
                                 <span class="help-block">Nombre de Usuaio para el Inicio de Sesión</span>  
                             </div>
                         </div>
@@ -120,7 +120,7 @@ echo $id_persona;
                             if (data[0].estado === "ok") {
                                 $("#txtNombre").val(data[0].campos.nombre);
                                 $("#txtApPaterno").val(data[0].campos.paterno);
-                                $("#txtApellidoMaterno").val(data[0].campos.materno);
+                                $("#txtApMaterno").val(data[0].campos.materno);
                                 $("#txtEmail").val(data[0].campos.email);
                                 $("#txtUser").val(data[0].campos.usuario);
                                 $("#txtUser").addClass(".readonly .disabled");
@@ -129,7 +129,6 @@ echo $id_persona;
                             } else {
 
                             }
-                            console.log(data[0].estado);
                         },
                         error: function (e) {
                             error(e);
@@ -143,13 +142,14 @@ echo $id_persona;
                         type: 'POST',
                         data: {
                             accion: 'update',
+                            id_persona:$("#txtIdPersona").val(),
                             nombre: $("#txtNombre").val(),
                             ap_paterno: $("#txtApPaterno").val(),
-                            ap_materno: $("#txtApellidoMaterno").val(),
+                            ap_materno: $("#txtApMaterno").val(),
                             user: $("#txtUser").val(),
                             pass: $("#txtClave").val(),
-                            email: $("#txtEmail").val(),
-                            id_persona:$("txtIdPersona").val()
+                            email: $("#txtEmail").val()
+                            
                         },
                         url: "controller/usuarioController.php",
                         success: function (e) {

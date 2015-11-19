@@ -60,10 +60,15 @@ if ($accion == "add") {
     $bd = new BD();
     $bd->beginTransaction();
     try {
+        $parametrosPersona = array(
+            "pers_nombres" => $nombre,
+            "pers_paterno" => $apPaterno,
+            "pers_materno" => $apMaterno,
+            "pers_nombrecompleto" => $nombre . " " . $apPaterno . " " . $apMaterno,
+            "pers_email" => $email
+        );
 
-        $parametros = array($id_persona);
-
-        $bd->select(Consultas::CARGAR_USUARIOS, $parametros);
+        $bd->insert(tablas::PERSONAS, $parametrosPersona);
         if ($bd->myException->getEstado() == 0) {
             $parametrosUsuario = array(
                 'usua_nombre_usuario' => $user,
@@ -79,14 +84,14 @@ if ($accion == "add") {
             } else {
                 $bd->rollBack();
                 $estado = "error";
-                $mensaje = $e->getMensaje();
+                $mensaje = $bd->myException->getMensaje();
             }
         } else {
             $bd->rollBack();
             $estado = "error";
-            $mensaje = $e->getMensaje();
+            $mensaje = $bd->myException->getMensaje();
         }
-    } catch (Exception $e) {
+    } catch (MyException $e) {
         $bd->rollBack();
         $estado = "error";
         $mensaje = $e->getMensaje();
@@ -109,8 +114,8 @@ if ($accion == "cargar") {
                     "id_persona" => $rs["id_persona"],
                     "nombre" => $rs["pers_nombres"],
                     "email" => $rs["pers_email"],
-                    "paterno"=>$rs["pers_paterno"],
-                    "materno"=>$rs["pers_materno"],
+                    "paterno" => $rs["pers_paterno"],
+                    "materno" => $rs["pers_materno"],
                     "usuario" => $rs["usua_nombre_usuario"]);
             }
         }
@@ -119,7 +124,37 @@ if ($accion == "cargar") {
         $mensaje = $e->getMessage();
     }
     $bd = NULL;
-    $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje,"campos"=>$campos);
+    $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje, "campos" => $campos);
+}
+
+if ($accion == "update") {
+    $bd = new BD();
+    try {
+        $parametros = array(
+            "pers_nombres" => $nombre,
+            "pers_paterno" => $apPaterno,
+            "pers_materno" => $apMaterno,
+            "pers_email" => $email,
+            "pers_nombrecompleto" => $nombre . " " . $apPaterno . " " . $apMaterno,
+        );
+        $condicion = array("id_persona" => $id_persona);
+        $res =$bd->update(tablas::PERSONAS, $parametros, $condicion);
+        if ($bd->myException->getEstado() == 0) {
+
+            $estado = "ok";
+            $mensaje = "Usuario Actualizado Exitosamente";
+        } else {
+
+            $estado = "error";
+            $mensaje = $bd->myException->getMensaje();
+        }
+    } catch (MyException $ex) {
+        $estado = "error";
+        $mensaje = $e->getMessage();
+        getMessage();
+    }
+    $bd = NULL;
+    $respuesta[] = array("estado" => $estado, "mensaje" => $mensaje);
 }
 
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
