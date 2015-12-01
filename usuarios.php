@@ -150,7 +150,7 @@ and open the template in the editor.
                                         },
                                         complete: function (e) {
                                             $spinner.stop();
-
+                                            window.location.href = "usuarios.php";
                                         }, error: function (jqXHR, textStatus, errorThrown) {
                                             $spinner.stop();
                                         }

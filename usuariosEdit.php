@@ -23,8 +23,8 @@ echo $id_persona;
         <div class="container">
             <div class="well bs-component">
                 <form class="form-horizontal" id="frmAdd">
-                    <input type="hidden" id="txtIdPersona" value="<?= $id_persona; ?>"  />
-                    <h1 class="page-header"><?= $id_persona == 0 ? "Agregar Usuario" : "Editar Usuario"; ?></h1>
+                    <input type="hidden" id="txtIdPersona" value="<?=$id_persona; ?>"  />
+                    <h1 class="page-header"><?=$id_persona == 0 ? "Agregar Usuario" : "Editar Usuario"; ?></h1>
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Datos Persona</legend>

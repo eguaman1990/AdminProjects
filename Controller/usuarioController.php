@@ -8,6 +8,7 @@ require_once "../class/MyException.class.php";
 $respuesta = "";
 $estado = "";
 $mensaje = "";
+$campos=array();
 if (isset($_REQUEST["accion"])) {
     $accion = $_REQUEST["accion"];
 } else {
