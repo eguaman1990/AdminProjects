@@ -20,9 +20,9 @@ if (isset($_REQUEST["id_persona"])) {
 }
 
 if ($accion == "eliminar") {
-    $bd = new BD();
-    $bd->beginTransaction();
+    $bd = new BD();$bd->beginTransaction();
     try {
+    
         $parametros = array("id_persona" => $id_persona);
         $res = $bd->delete(tablas::USUARIOS, $parametros);
         if ($bd->myException->getEstado() == 0) {
@@ -30,11 +30,14 @@ if ($accion == "eliminar") {
             if ($bd->myException->getEstado() == 0) {
                 $estado="ok";
                 $mensaje=Mensajes::REGISTRO_ELIMINADO;
+                $bd->commit();
             }else{
+                $bd->rollBack();
                 $estado = "error";
                 $mensaje = $bd->myException->getMensaje();
             }
         } else {
+            $bd->rollBack();
             $estado = "error";
             $mensaje = $bd->myException->getMensaje();
         }
