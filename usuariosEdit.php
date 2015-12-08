@@ -5,7 +5,6 @@ if (isset($_REQUEST["id_persona"])) {
 } else {
     $id_persona = 0;
 }
-echo $id_persona;
 ?>
 
 <html>
