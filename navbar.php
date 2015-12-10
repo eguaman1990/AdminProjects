@@ -15,7 +15,7 @@
         <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Administración<b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="usuarios.php">Usuarios</a></li>
-          <li><a href="javascript:void(0)">Another action</a></li>
+          <li><a href="bancos.php">Bancos</a></li>
           <li><a href="javascript:void(0)">Something else here</a></li>
           <li class="divider"></li>
           <li class="dropdown-header">Dropdown header</li>
