@@ -15,8 +15,9 @@
         <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Administración<b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="usuarios.php">Usuarios</a></li>
+          <li><a href="perfiles.php">Perfiles</a></li>
           <li><a href="bancos.php">Bancos</a></li>
-          <li><a href="javascript:void(0)">Something else here</a></li>
+          <li><a href="paises.php">Paises</a></li>
           <li class="divider"></li>
           <li class="dropdown-header">Dropdown header</li>
           <li><a href="javascript:void(0)">Separated link</a></li>
@@ -24,19 +25,16 @@
         </ul>
       </li>
     </ul>
-    <form class="navbar-form navbar-left">
-      <input type="text" class="form-control col-lg-8" placeholder="Search">
-    </form>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="javascript:void(0)">Link</a></li>
       <li class="dropdown">
-        <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+        <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Edwin Guamán<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="javascript:void(0)">Action</a></li>
-          <li><a href="javascript:void(0)">Another action</a></li>
-          <li><a href="javascript:void(0)">Something else here</a></li>
+          <li><a href="javascript:void(0)">Mi Perfil</a></li>
+          <li><a href="javascript:void(0)">Cambiar Clave</a></li>
+          <li><a href="javascript:void(0)">Acerca de AdminProjects</a></li>
           <li class="divider"></li>
-          <li><a href="javascript:void(0)">Separated link</a></li>
+          <li><a href="javascript:void(0)">Cerrar Sesión</a></li>
         </ul>
       </li>
     </ul>
